@@ -25,9 +25,9 @@ app.use('/api/auth', authLimiter);
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', require('../routes/auth'));
-app.use('/api/products', require('../routes/products'));
-app.use('/api/orders', require('../routes/orders'));
+app.use('/auth', require('../routes/auth'));
+app.use('/products', require('../routes/products'));
+app.use('/orders', require('../routes/orders'));
 
 // Basic Error Handling Middleware
 app.use((err, req, res, next) => {
