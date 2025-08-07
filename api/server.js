@@ -24,6 +24,11 @@ app.use('/auth', authLimiter);
 // Body Parser
 app.use(express.json());
 
+// Test route
+app.get('/', (req, res) => {
+  res.send('API is running!');
+});
+
 // Routes
 app.use('/auth', require('../routes/auth'));
 app.use('/products', require('../routes/products'));
