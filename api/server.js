@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('../config/db');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+
+connectDB();
 
 const app = express();
 
@@ -22,15 +24,10 @@ app.use('/api/auth', authLimiter);
 // Body Parser
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error(err));
-
-// Routes (placeholders for now)
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/products', require('./routes/products'));
-app.use('/api/orders', require('./routes/orders'));
+// Routes
+app.use('/api/auth', require('../routes/auth'));
+app.use('/api/products', require('../routes/products'));
+app.use('/api/orders', require('../routes/orders'));
 
 // Basic Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -40,4 +37,8 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+module.exports = app;
