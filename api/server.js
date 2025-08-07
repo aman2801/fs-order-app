@@ -19,7 +19,7 @@ const authLimiter = rateLimit({
   max: process.env.RATE_LIMIT_MAX || 100, // Max 100 requests per 15 minutes
   message: 'Too many requests from this IP, please try again after 15 minutes',
 });
-app.use('/api/auth', authLimiter);
+app.use('/auth', authLimiter);
 
 // Body Parser
 app.use(express.json());
