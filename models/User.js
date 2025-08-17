@@ -14,6 +14,15 @@ const UserSchema = new mongoose.Schema({
   },
   refreshToken: {
     type: String
+  },
+  mobileNumber: {
+    type: String,
+    required: true,
+    match: [/^(\+\d{1,3}[- ]?)?\d{10}$/, 'Please use a valid mobile number']
+  },
+  shopName: {
+    type: String,
+    required: true
   }
 });
 

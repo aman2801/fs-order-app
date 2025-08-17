@@ -6,7 +6,7 @@ const User = require('../models/User');
 // @route   POST /api/auth/register
 // @access  Public
 exports.registerUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, mobileNumber, shopName } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -17,6 +17,8 @@ exports.registerUser = async (req, res) => {
     user = new User({
       email,
       password,
+      mobileNumber,
+      shopName
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -121,3 +123,4 @@ exports.refreshAccessToken = async (req, res) => {
     res.status(401).json({ msg: 'Refresh token is not valid' });
   }
 };
+
