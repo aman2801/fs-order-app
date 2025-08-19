@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
 app.use('/auth', require('../routes/auth'));
 app.use('/products', require('../routes/products'));
 app.use('/orders', require('../routes/orders'));
+app.use('/products/all', require('../routes/admin/products'));
+app.use('/orders/all', require('../routes/admin/orders'));
 
 // Basic Error Handling Middleware
 app.use((err, req, res, next) => {
