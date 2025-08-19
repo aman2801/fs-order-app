@@ -6,3 +6,4 @@ package-lock.json
 backend.txt
 .vercel
 .parcel-cache/*
+.parcel-cache/
