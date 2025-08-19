@@ -6,6 +6,6 @@ const { getAllProducts } = require('../../controllers/admin/productController');
 // @route   GET /api/admin/products/all
 // @desc    Get all products for admin
 // @access  Private (Admin)
-router.get('/all', adminAuth, getAllProducts);
+router.get('/', adminAuth, getAllProducts);
 
 module.exports = router;
