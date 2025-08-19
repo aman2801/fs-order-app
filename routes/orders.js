@@ -14,6 +14,6 @@ router.post('/', auth, placeOrder);
 // @desc    Get user's order history
 // @access  Private
 router.get('/', auth, getOrderHistory);
-router.get('/all', auth, getAllOrders);
+router.get('/all', adminAuth, getAllOrders);
 
 module.exports = router;

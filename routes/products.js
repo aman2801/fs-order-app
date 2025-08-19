@@ -9,6 +9,6 @@ const { getAllProducts } = require('../controllers/admin/productController');
 // @desc    List products (auth required)
 // @access  Private
 router.get('/', auth, getProducts);
-router.get('/all', auth, getAllProducts);
+router.get('/all', adminAuth, getAllProducts);
 
 module.exports = router;

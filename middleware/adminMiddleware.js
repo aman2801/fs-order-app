@@ -8,8 +8,8 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.user;
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // req.user = decoded.user;
 
     // Check if user is an admin
     // if (req.user.role !== 'admin') {

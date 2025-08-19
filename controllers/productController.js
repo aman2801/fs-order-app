@@ -5,16 +5,7 @@ const Product = require('../models/Product');
 // @access  Private
 exports.getProducts = async (req, res) => {
   try {
-    let query = {};
-    if (req.query.category) {
-      query.category = req.query.category;
-    }
-    if (req.query.search) {
-      query.name = { $regex: req.query.search, $options: 'i' };
-    }
-
-    const products = await Product.find(query);
-
+    const products = await Product.find({});
     res.json({ products });
   } catch (err) {
     console.error(err.message);
