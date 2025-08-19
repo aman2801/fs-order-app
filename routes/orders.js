@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/authMiddleware');
 const { placeOrder, getOrderHistory } = require('../controllers/orderController');
-const adminAuth = require('../../middleware/adminMiddleware');
-const { getAllOrders } = require('../../controllers/admin/orderController');
+const adminAuth = require('../middleware/adminMiddleware');
+const { getAllOrders } = require('../controllers/admin/orderController');
 
 // @route   POST /api/orders
 // @desc    Place new order
