@@ -9,6 +9,8 @@ connectDB();
 
 const app = express();
 
+app.set('trust proxy', 1); // <-- Add this line
+
 // Security Middleware
 app.use(helmet());
 app.use(cors()); // Consider more restrictive CORS options in production
