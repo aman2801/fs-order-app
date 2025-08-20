@@ -43,8 +43,8 @@ exports.placeOrder = async (req, res) => {
 
     // Send WhatsApp notification
     // IMPORTANT: You need to install the twilio package for this to work: npm install twilio
-    const accountSid = 'AC68d6b50f69a55d9c30ebd19d3f95d588'; // Add your Twilio Account SID
-    const authToken = 'f652f1da8a07d33d6e0280bc6b564b11'; // Add your Twilio Auth Token
+    const accountSid = process.env.accountSid; // Add your Twilio Account SID
+    const authToken = process.env.authToken; // Add your Twilio Auth Token
     const client = require('twilio')(accountSid, authToken);
 
     const orderDetails = order.products.map(p => `${p.quantity} x ${p.product.name}`).join('\n');
@@ -55,7 +55,7 @@ exports.placeOrder = async (req, res) => {
       .create({
         from: 'whatsapp:+14155238886',
         to: 'whatsapp:+917983793737', // Add the recipient's WhatsApp number
-        contentSid: 'HXb5b62575e6e4ff6129ad7c8efe1f983e',
+        contentSid: process.env.contentSid, // Add your Twilio Content SID
         contentVariables: JSON.stringify({
           1: order._id,
           2: orderDetails,
