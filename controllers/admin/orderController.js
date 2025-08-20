@@ -5,7 +5,7 @@ const Order = require('../../models/Order');
 // @access  Private (Admin)
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).populate('products.product');
+    const orders = await Order.find({}).populate('products.product').populate('user');
     res.json(orders);
   } catch (err) {
     console.error(err.message);

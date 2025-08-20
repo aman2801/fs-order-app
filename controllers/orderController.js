@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const User = require('../models/User');
 
 // @desc    Place new order
 // @route   POST /api/orders
@@ -14,6 +15,7 @@ exports.placeOrder = async (req, res) => {
 
   try {
     const orderProducts = [];
+    let totalAmount = 0;
 
     for (const item of products) {
       const product = await Product.findById(item.product);
@@ -25,6 +27,7 @@ exports.placeOrder = async (req, res) => {
         return res.status(400).json({ msg: `Insufficient stock for product: ${product.name}` });
       }
       orderProducts.push({ product: item.product, quantity: item.quantity });
+      totalAmount += product.price * item.quantity;
     }
 
     const newOrder = new Order({
@@ -34,7 +37,37 @@ exports.placeOrder = async (req, res) => {
       status: 'pending',
     });
 
-    const order = await newOrder.save();
+    let order = await newOrder.save();
+    order = await order.populate('products.product');
+
+
+    // Send WhatsApp notification
+    // IMPORTANT: You need to install the twilio package for this to work: npm install twilio
+    const accountSid = 'AC68d6b50f69a55d9c30ebd19d3f95d588'; // Add your Twilio Account SID
+    const authToken = 'f652f1da8a07d33d6e0280bc6b564b11'; // Add your Twilio Auth Token
+    const client = require('twilio')(accountSid, authToken);
+
+    const orderDetails = order.products.map(p => `${p.quantity} x ${p.product.name}`).join('\n');
+
+    const user = await User.findById(order.user);
+
+    client.messages
+      .create({
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+917983793737', // Add the recipient's WhatsApp number
+        contentSid: 'HXb5b62575e6e4ff6129ad7c8efe1f983e',
+        contentVariables: JSON.stringify({
+          1: order._id,
+          2: orderDetails,
+          3: user.name,
+          4: user.email,
+          5: user.shopName,
+          6: user.mobileNumber,
+        }),
+      })
+      .then(message => console.log(message.sid))
+      .catch(err => console.error(err));
+
     res.json(order);
   } catch (err) {
     console.error(err.message);
