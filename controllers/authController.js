@@ -6,6 +6,7 @@ const User = require('../models/User');
 // @route   POST /api/auth/register
 // @access  Public
 exports.registerUser = async (req, res) => {
+  console.log(req.body);
   const { email, password, mobileNumber, shopName } = req.body;
 
   try {
