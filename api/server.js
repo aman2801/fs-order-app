@@ -9,9 +9,7 @@ connectDB();
 
 const app = express();
 
-app.set('trust proxy', 1); // <-- Add this line
-
-app.set('trust proxy', 1); // <-- Add this line
+app.set('trust proxy', 1);
 
 // Security Middleware
 app.use(helmet());
@@ -37,7 +35,8 @@ app.get('/', (req, res) => {
 app.use('/auth', require('../routes/auth'));
 app.use('/products', require('../routes/products'));
 app.use('/orders', require('../routes/orders'));
-app.use('/orders/all', require('../routes/admiin//orders'));
+app.use('/admin/auth', require('../routes/admin/auth'));
+app.use('/orders/all', require('../routes/admin/orders'));
 app.use('/products/all', require('../routes/admin/products'));
 
 // Basic Error Handling Middleware
