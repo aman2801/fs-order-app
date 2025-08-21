@@ -1,3 +1,4 @@
+console.log('auth.js file loaded');
 const express = require('express');
 const router = express.Router();
 const { registerUser, loginUser, refreshAccessToken } = require('../controllers/authController');
